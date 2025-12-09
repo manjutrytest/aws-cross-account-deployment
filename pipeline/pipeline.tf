@@ -1,4 +1,4 @@
-# Deploy this in SOURCE account (047861165149)
+# Deploy this in SOURCE account (821706771879)
 
 terraform {
   required_version = ">= 1.0"
@@ -16,11 +16,11 @@ provider "aws" {
 }
 
 variable "source_account_id" {
-  default = "047861165149"
+  default = "821706771879"
 }
 
 variable "target_account_id" {
-  default = "821706771879"
+  default = "047861165149"
 }
 
 variable "github_repo" {
@@ -100,7 +100,7 @@ resource "aws_iam_role_policy" "codebuild" {
         ]
         Resource = [
           "${aws_s3_bucket.pipeline_artifacts.arn}/*",
-          "arn:aws:s3:::bom-terraform-state-821706771879/*"
+          "arn:aws:s3:::bom-terraform-state-047861165149/*"
         ]
       },
       {
@@ -110,7 +110,7 @@ resource "aws_iam_role_policy" "codebuild" {
           "dynamodb:PutItem",
           "dynamodb:DeleteItem"
         ]
-        Resource = "arn:aws:dynamodb:eu-north-1:821706771879:table/terraform-cfn-locks"
+        Resource = "arn:aws:dynamodb:eu-north-1:047861165149:table/terraform-cfn-locks"
       },
       {
         Effect = "Allow"

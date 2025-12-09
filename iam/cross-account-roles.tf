@@ -1,4 +1,4 @@
-# Deploy this in TARGET account (821706771879)
+# Deploy this in TARGET account (047861165149)
 # This role allows the source account to deploy resources
 
 terraform {
@@ -19,13 +19,13 @@ provider "aws" {
 variable "source_account_id" {
   description = "Source AWS account ID"
   type        = string
-  default     = "047861165149"
+  default     = "821706771879"
 }
 
 variable "target_account_id" {
   description = "Target AWS account ID"
   type        = string
-  default     = "821706771879"
+  default     = "047861165149"
 }
 
 # Role for Terraform to assume in target account

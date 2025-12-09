@@ -1,7 +1,7 @@
 variable "target_account_id" {
   description = "Target AWS account ID"
   type        = string
-  default     = "821706771879"
+  default     = "047861165149"
 }
 
 variable "target_region" {
@@ -13,7 +13,7 @@ variable "target_region" {
 variable "source_account_id" {
   description = "Source AWS account ID"
   type        = string
-  default     = "047861165149"
+  default     = "821706771879"
 }
 
 variable "instance_type" {

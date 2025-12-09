@@ -9,11 +9,11 @@ terraform {
   }
   
   backend "s3" {
-    bucket         = "bom-terraform-state-821706771879"
+    bucket         = "bom-terraform-state-047861165149"
     key            = "cross-account/terraform.tfstate"
     region         = "eu-north-1"
     encrypt        = true
-    dynamodb_table = "terraform-cfn-locks"
+    dynamodb_table = "terraform-state-lock"
   }
 }
 

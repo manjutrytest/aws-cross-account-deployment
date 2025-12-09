@@ -4,7 +4,7 @@ Description: 'Cross-account IAM role for Terraform deployment from source accoun
 Parameters:
   SourceAccountId:
     Type: String
-    Default: '047861165149'
+    Default: '821706771879'
     Description: Source AWS account ID that will assume this role
 
 Resources:
