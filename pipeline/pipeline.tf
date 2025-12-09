@@ -26,7 +26,7 @@ variable "target_account_id" {
 variable "github_repo" {
   description = "GitHub repository (owner/repo)"
   type        = string
-  default     = "your-org/your-repo"
+  default     = "manjutrytest/aws-cross-account-deployment"
 }
 
 variable "github_branch" {
