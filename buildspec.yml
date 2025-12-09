@@ -1,0 +1,45 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing Terraform..."
+      - wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+      - unzip terraform_1.6.0_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
+      
+  pre_build:
+    commands:
+      - echo "Configuring AWS credentials for cross-account access..."
+      - cd terraform
+      - terraform init
+      
+  build:
+    commands:
+      - |
+        if [ "$TF_COMMAND" = "plan" ]; then
+          echo "Running Terraform plan..."
+          terraform plan -out=tfplan
+        elif [ "$TF_COMMAND" = "apply" ]; then
+          echo "Running Terraform apply..."
+          terraform apply -auto-approve
+        else
+          echo "Unknown TF_COMMAND: $TF_COMMAND"
+          exit 1
+        fi
+      
+  post_build:
+    commands:
+      - echo "Terraform $TF_COMMAND completed successfully"
+      - terraform output -json > outputs.json
+
+artifacts:
+  files:
+    - terraform/tfplan
+    - terraform/outputs.json
+  name: TerraformArtifacts
+
+cache:
+  paths:
+    - '/root/.terraform.d/**/*'

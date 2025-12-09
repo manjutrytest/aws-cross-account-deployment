@@ -1,0 +1,9 @@
+# Copy this file to terraform.tfvars and update with your values
+
+target_account_id = "821706771879"
+target_region     = "eu-north-1"
+source_account_id = "047861165149"
+instance_type     = "t3.medium"
+ebs_volume_size   = 40
+project_name      = "cross-account-infra"
+environment       = "production"

@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Cross-account IAM role for Terraform deployment from source account'
+
+Parameters:
+  SourceAccountId:
+    Type: String
+    Default: '047861165149'
+    Description: Source AWS account ID that will assume this role
+
+Resources:
+  TerraformDeploymentRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: TerraformDeploymentRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${SourceAccountId}:root'
+            Action: 'sts:AssumeRole'
+            Condition:
+              StringEquals:
+                'sts:ExternalId': 'terraform-deployment'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/PowerUserAccess'
+      Policies:
+        - PolicyName: TerraformDeploymentPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'iam:*'
+                  - 'cloudformation:*'
+                Resource: '*'
+      Tags:
+        - Key: Name
+          Value: TerraformDeploymentRole
+        - Key: Purpose
+          Value: CrossAccountDeployment
+
+Outputs:
+  RoleArn:
+    Description: ARN of the Terraform deployment role
+    Value: !GetAtt TerraformDeploymentRole.Arn
+    Export:
+      Name: TerraformDeploymentRoleArn
